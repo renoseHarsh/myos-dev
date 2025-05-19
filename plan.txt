@@ -1,0 +1,5 @@
+Get into kernel
+) Start text mode
+) Load kernal into memeory at 0x1000
+) Enter Protected mode
+) Perform far jump to 0x1000
