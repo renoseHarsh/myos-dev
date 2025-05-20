@@ -15,11 +15,6 @@ mov dh, 0
 mov bx, 0x1000
 int 0x13
 
-mov ah, 0x0E
-mov al, code_sel + 33
-int 10h
-
-
 cli
 lgdt [GDT_Descriptor]
 mov eax, cr0
@@ -27,7 +22,6 @@ or al, 1
 mov cr0, eax
 
 jmp code_sel:protected_mode
-
 
 halt:
 	cli

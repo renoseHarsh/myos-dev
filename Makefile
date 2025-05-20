@@ -1,12 +1,12 @@
 all: build/bootable.bin
 
-build/bootloader.bin: src/bootloader.asm
+build/bootloader.bin: bootloader/bootloader.asm
 	nasm $< -f bin -o $@
 
-build/kernel.o: src/kernel.c
+build/kernel.o: kernel/kernel.c
 	i686-elf-gcc -ffreestanding -m32 -g -c $< -o $@
 
-build/loader.o: src/loader.asm
+build/loader.o: bootloader/loader.asm
 	nasm $< -f elf -o $@
 
 build/kernel.bin: build/loader.o build/kernel.o

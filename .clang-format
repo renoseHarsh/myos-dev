@@ -1,0 +1,3 @@
+BasedOnStyle: GNU
+BreakAfterReturnType: Automatic
+PenaltyReturnTypeOnItsOwnLine: 200
