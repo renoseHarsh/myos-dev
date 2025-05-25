@@ -20,6 +20,7 @@ enum vga_color {
 };
 
 void vga_set_color(const enum vga_color fg, const enum vga_color bg);
+void vga_clear();
 void vga_putc(const char c);
 void vga_puts(const char *str);
 

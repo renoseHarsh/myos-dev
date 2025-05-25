@@ -29,7 +29,7 @@ static void vga_scroll()
     }
 }
 
-static void movCursor()
+static void vga_move_cursor()
 {
     uint16_t pos = cursor_row * columns + cursor_col;
     outb(0x3D4, 0x0E);
@@ -41,6 +41,19 @@ static void movCursor()
 void vga_set_color(const enum vga_color bg, const enum vga_color fg)
 {
     vga_color = (bg << 4 | fg);
+}
+
+void vga_clear()
+{
+    vga_set_color(VGA_COLOR_BLACK, VGA_COLOR_GRAY);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            vga_buffer[(i * columns) + j] = vga_color << 8;
+        }
+    }
+    cursor_col = 0;
+    cursor_row = 0;
+    vga_move_cursor();
 }
 
 void vga_putc(const char c)
@@ -60,7 +73,7 @@ void vga_putc(const char c)
             cursor_col = 0;
         }
     }
-    movCursor();
+    vga_move_cursor();
 }
 
 void vga_puts(const char *str)
