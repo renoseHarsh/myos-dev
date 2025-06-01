@@ -13,14 +13,16 @@ This is a hobby operating system written in C and Assembly, developed from scrat
 - [x] VGA scrolling and cursor movement (internal to `vga.c`)
 - [x] Build system using `Makefile`
 - [x] Compiles to bootable binary (`bootable.bin`, `kernel.bin`, etc.)
+- [x] Minimal Debug kprintf
 
 ---
 
 ## 🔧 Planned Features
 
-- [ ] Minimal freestanding libc implementation
-  - [ ] `memcpy`, `memset`, `strlen`, `strcmp`, `strcpy`
-  - [ ] `printf`, `putchar`, `puts`, `scanf`
+- [ ] Memory functions
+  - [ ] `kmalloc`, `kfree`
+- [ ] IDT
+- [ ] Keyboard
 - [ ] Concurrecny
 - [ ] Virtualization
   - [ ] Paging 
@@ -39,5 +41,5 @@ make
 To run in QEMU:
 
 ```bash
-qemu-system-i386 -kernel build/bootable.bin
+qemu-system-i386 -drive build/bootable.bin
 ```
