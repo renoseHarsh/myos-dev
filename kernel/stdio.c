@@ -18,7 +18,7 @@ static int print_hex(unsigned int n)
 	return count + 1;
 }
 
-static int print_int(int n, int base)
+static int print_int(int n, const int base)
 {
 	int count = 0;
 	if (base == 10 && n < 0) {
@@ -39,6 +39,16 @@ static int print_int(int n, int base)
 	return count;
 }
 
+static int print_str(const char *str)
+{
+	int count = 0;
+	while (*str != '\0') {
+		vga_putc(*str++);
+		count++;
+	}
+	return count;
+}
+
 int kprintf(const char *fmt, ...)
 {
 	va_list args;
@@ -54,6 +64,13 @@ int kprintf(const char *fmt, ...)
 				}
 				case 'x': {
 					count += print_int(va_arg(args, int), 16);
+				}
+				case 'c': {
+					count++;
+					vga_putc((char)va_arg(args, int));
+				}
+				case 's': {
+					count += print_str(va_arg(args, char *));
 				}
 			}
 		} else {

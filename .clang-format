@@ -3,7 +3,7 @@ BreakAfterReturnType: Automatic
 PenaltyReturnTypeOnItsOwnLine: 200
 IndentWidth: 4
 TabWidth: 4
-UseTab: Always
+UseTab: ForIndentation
 IndentCaseLabels: True
 
 SpaceBeforeParens: Custom

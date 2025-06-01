@@ -3,6 +3,5 @@
 
 int main()
 {
-	for (int i = -16; i < 1; i++)
-		kprintf("%x\n", i);
+	kprintf("Hello My guy %s\n", "Harsh");
 }
