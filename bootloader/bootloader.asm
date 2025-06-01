@@ -8,7 +8,7 @@ int 10h
 
 ; Load Kernel Into memory
 mov ah, 02h
-mov al, 10
+mov al, 100
 mov ch, 0
 mov cl, 2
 mov dh, 0
