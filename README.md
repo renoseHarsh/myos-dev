@@ -14,6 +14,7 @@ This is a hobby operating system written in C and Assembly, developed from scrat
 - [x] Build system using `Makefile`
 - [x] Compiles to bootable binary (`bootable.bin`, `kernel.bin`, etc.)
 - [x] Minimal Debug kprintf
+- [x] IDT
 
 ---
 
@@ -21,7 +22,6 @@ This is a hobby operating system written in C and Assembly, developed from scrat
 
 - [ ] Memory functions
   - [ ] `kmalloc`, `kfree`
-- [ ] IDT
 - [ ] Keyboard
 - [ ] Concurrecny
 - [ ] Virtualization
