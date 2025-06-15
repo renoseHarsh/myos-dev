@@ -1,6 +1,7 @@
 #include "isr.h"
 #include "../stdio.h"
-#include "../util.h"
+#include "io.h"
+#include "pic.h"
 #include <stdbool.h>
 
 static isr_t interrupt_handlers[256];
@@ -44,6 +45,7 @@ void __attribute__((cdecl)) isr_handler(Registers *regs)
 		interrupt_handlers[regs->interrupt](regs);
 	} else if (regs->interrupt >= 32) {
 		kprintf("Unhandled interrupt: %d\n", regs->interrupt);
+		PIC_sendEOI(regs->interrupt - 32);
 	} else {
 		kprintf("Unhandled exception %d %s\n", regs->interrupt,
 		        g_Exceptions[regs->interrupt]);
@@ -56,7 +58,7 @@ void __attribute__((cdecl)) isr_handler(Registers *regs)
 	}
 }
 
-static void register_interrupt_handler(int n, isr_t handler)
+void register_interrupt_handler(int n, isr_t handler)
 {
 	interrupt_handlers[n] = handler;
 }

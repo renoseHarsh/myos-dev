@@ -1,5 +1,6 @@
-#include "util.h"
-#include "stdio.h"
+#include "io.h"
+#include "../stdio.h"
+#include <stdint.h>
 
 void kernel_panic()
 {

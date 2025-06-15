@@ -1,5 +1,6 @@
 #include "idt.h"
 #include "isr.h"
+#include "pic.h"
 #include <stdint.h>
 
 IDTEntry idtGates[256];
@@ -20,6 +21,7 @@ void load_idt()
 {
 
 	ISR_Initialize();
+	PIC_Initialize(0x20, 0x28);
 	idt.offset = idtGates;
 	idt.size = sizeof(idtGates) - 1;
 	__asm__ __volatile__("lidt %0" : : "m"(idt));

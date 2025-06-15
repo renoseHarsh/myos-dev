@@ -12,5 +12,6 @@ typedef struct {
 void initialize_isr_gates();
 typedef void (*isr_t)(Registers *regs);
 void ISR_Initialize();
+void register_interrupt_handler(int n, isr_t handler);
 
 #endif

@@ -32,4 +32,5 @@ isr_common:
 	add esp, 4
 
 	popad
+	add esp, 8
 	iret

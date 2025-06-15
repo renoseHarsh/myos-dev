@@ -5,4 +5,3 @@ section .text
 _start:
 	extern main
 	call main
-	hlt
