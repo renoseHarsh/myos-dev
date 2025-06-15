@@ -21,3 +21,4 @@ BreakBeforeBraces: Custom
 BraceWrapping: 
   AfterControlStatement: Never
   AfterFunction: true
+

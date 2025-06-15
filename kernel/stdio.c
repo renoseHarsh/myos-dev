@@ -31,10 +31,14 @@ static int print_int(int n, const int base)
 		return 1;
 	}
 	switch (base) {
-		case 10:
+		case 10: {
 			count += print_digit(n);
-		case 16:
+			break;
+		}
+		case 16: {
 			count += print_hex((unsigned int)n);
+			break;
+		}
 	}
 	return count;
 }
@@ -61,16 +65,20 @@ int kprintf(const char *fmt, ...)
 			switch (*(++fmt)) {
 				case 'd': {
 					count += print_int(va_arg(args, int), 10);
+					break;
 				}
 				case 'x': {
 					count += print_int(va_arg(args, int), 16);
+					break;
 				}
 				case 'c': {
 					count++;
 					vga_putc((char)va_arg(args, int));
+					break;
 				}
 				case 's': {
 					count += print_str(va_arg(args, char *));
+					break;
 				}
 			}
 		} else {

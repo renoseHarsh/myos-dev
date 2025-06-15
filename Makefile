@@ -5,8 +5,20 @@ cflags := -O0 -ffreestanding -m32 -g -c -Wall
 # ldflags := -T linker.ld -ffreestanding -O0 -nostdlib -lgcc -m32
 ldflags := -ffreestanding -O0 -nostdlib -lgcc -m32 -Wl,-Ttext,0x1000
 
-src := $(wildcard kernel/*.c)
-obj := $(src:kernel/%.c=build/%.o)
+c_src := $(shell find kernel -name '*.c')
+asm_src := $(shell find kernel -name '*.asm')
+
+c_obj := $(patsubst kernel/%.c, build/%.o, $(c_src))
+asm_obj := $(patsubst kernel/%.asm, build/%.o, $(asm_src))
+
+obj := $(c_obj) $(asm_obj)
+
+dirs := $(sort $(dir $(c_obj)))
+
+all: build/bootable.bin
+
+prepare:
+	@mkdir -p $(dirs)
 
 build/bootable.bin: build/bootloader.bin build/kernel.bin
 	cat $^ > $@
@@ -17,14 +29,18 @@ build/bootloader.bin: bootloader/bootloader.asm
 build/kernel.bin: build/kernel.elf
 	i686-elf-objcopy -O binary $< $@
 
-build/kernel.elf: build/loader.o $(obj)
+build/kernel.elf: build/loader.o $(c_obj) $(asm_obj)
 	$(gcc) $(ldflags) -o $@ $^
 
 build/loader.o: bootloader/loader.asm
 	$(asm) $< -f elf -o $@
 
-build/%.o: kernel/%.c
+build/%.o: kernel/%.c | prepare
 	$(gcc) $(cflags) $< -o $@
+
+build/%.o: kernel/%.asm | prepare
+	$(asm) $< -f elf -o $@
+
 
 clean:
 	rm -rf build/*
