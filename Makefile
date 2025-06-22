@@ -3,7 +3,7 @@ asm := nasm
 
 cflags := -O0 -ffreestanding -m32 -g -c -Wall
 # ldflags := -T linker.ld -ffreestanding -O0 -nostdlib -lgcc -m32
-ldflags := -ffreestanding -O0 -nostdlib -lgcc -m32 -Wl,-Ttext,0x1000
+ldflags := -ffreestanding -O0 -nostdlib -lgcc -m32 -Wl,-Ttext,0x100000
 
 c_src := $(shell find kernel -name '*.c')
 asm_src := $(shell find kernel -name '*.asm')
@@ -20,7 +20,7 @@ all: build/bootable.bin
 prepare:
 	@mkdir -p $(dirs)
 
-build/bootable.bin: build/bootloader.bin build/kernel.bin
+build/bootable.bin: build/bootloader.bin build/loader.bin build/kernel.bin
 	cat $^ > $@
 
 build/bootloader.bin: bootloader/bootloader.asm
@@ -28,12 +28,14 @@ build/bootloader.bin: bootloader/bootloader.asm
 
 build/kernel.bin: build/kernel.elf
 	i686-elf-objcopy -O binary $< $@
+	truncate -s 256512 $@
 
-build/kernel.elf: build/loader.o $(c_obj) $(asm_obj)
+build/kernel.elf: $(c_obj) $(asm_obj) 
 	$(gcc) $(ldflags) -o $@ $^
 
-build/loader.o: bootloader/loader.asm
-	$(asm) $< -f elf -o $@
+
+build/loader.bin: bootloader/loader.asm
+	$(asm) $< -f bin -o $@
 
 build/%.o: kernel/%.c | prepare
 	$(gcc) $(cflags) $< -o $@

@@ -8,7 +8,7 @@
 
 static uint16_t vga_color = 7; // Grey on Black
 static uint16_t *const vga_buffer = VGA_MEMORY;
-static int cursor_row = 0;
+static int cursor_row = 2;
 static int cursor_col = 0;
 
 static void outb(uint16_t port, uint8_t data)
@@ -21,7 +21,7 @@ static void vga_scroll()
 	for (int crow = 1; crow < rows; crow++) {
 		for (int ccol = 0; ccol < columns; ccol++) {
 			vga_buffer[((crow - 1) * columns) + ccol]
-				= vga_buffer[(crow * columns) + ccol];
+			    = vga_buffer[(crow * columns) + ccol];
 		}
 	}
 	for (int ccol = 0; ccol < columns; ccol++) {
@@ -67,7 +67,7 @@ void vga_putc(const char c)
 		cursor_col = 0;
 	} else {
 		vga_buffer[(cursor_row * columns) + cursor_col++]
-			= (vga_color << 8) | c;
+		    = (vga_color << 8) | c;
 		if (cursor_col == columns) {
 			cursor_row++;
 			cursor_col = 0;

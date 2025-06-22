@@ -8,11 +8,11 @@ int 10h
 
 ; Load Kernel Into memory
 mov ah, 02h
-mov al, 100
+mov al, 1
 mov ch, 0
 mov cl, 2
 mov dh, 0
-mov bx, 0x1000
+mov bx, 0x9000
 int 0x13
 
 cli
@@ -36,10 +36,10 @@ protected_mode:
 	mov fs, ax
 	mov gs, ax
 
-	mov ebp, 0x90000
+	mov ebp, 0x70000
 	mov esp, ebp
 
-	jmp code_sel:0x1000
+	jmp code_sel:0x9000
 
 	hlt
 

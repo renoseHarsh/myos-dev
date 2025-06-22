@@ -12,20 +12,24 @@ This is a hobby operating system written in C and Assembly, developed from scrat
 - [x] Screen clearing and colored text output (`vga_set_color`, `vga_clear`, `vga_putc`, `vga_puts`)
 - [x] VGA scrolling and cursor movement (internal to `vga.c`)
 - [x] Build system using `Makefile`
-- [x] Compiles to bootable binary (`bootable.bin`, `kernel.bin`, etc.)
-- [x] Minimal Debug kprintf
+- [x] Compiles to bootable binaries (`bootable.bin`, `kernel.bin`, etc.)
+- [x] Minimal debug `kprintf`
 - [x] IDT
-
----
+  - [x] Creating ISRs
+  - [x] Loading the IDT
+  - [x] Initializing the PIC
+  - [x] Setting up IRQ handlers
+- [x] Kernel loaded at `0x100000` using ATA PIO in protected mode---
 
 ## 🔧 Planned Features
 
-- [ ] Memory functions
-  - [ ] `kmalloc`, `kfree`
+- [ ] Memory
+  - [ ] Page frame allocator
+  - [ ] Enable 32-bit paging
+  - [ ] Kernel heap allocator (`kmalloc`, `kfree`)
 - [ ] Keyboard
-- [ ] Concurrecny
+- [ ] Concurrency
 - [ ] Virtualization
-  - [ ] Paging 
 - [ ] Networking
 
 ---
